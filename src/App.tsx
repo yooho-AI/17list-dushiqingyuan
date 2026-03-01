@@ -1,6 +1,6 @@
 /**
- * [INPUT]: store.ts (useGameStore), analytics, bgm
- * [OUTPUT]: 根组件: 开场三阶段(Splash→嘉宾闪切→角色创建) + GameScreen + EndingModal + MenuOverlay
+ * [INPUT]: store.ts (useGameStore), analytics, bgm, CoverPage
+ * [OUTPUT]: 根组件: 封面(Cover)→开场三阶段(Splash→嘉宾闪切→角色创建) + GameScreen + EndingModal + MenuOverlay
  * [POS]: 应用入口，无 isMobile 分叉
  * [PROTOCOL]: 变更时更新此头部，然后检查 CLAUDE.md
  */
@@ -10,7 +10,9 @@ import { motion, AnimatePresence } from 'framer-motion'
 import { useGameStore, ENDINGS, STORY_INFO, buildCharacters } from './lib/store'
 import { trackGameStart, trackGameContinue, trackPlayerCreate } from './lib/analytics'
 import { useBgm } from './lib/bgm'
+import CoverPage from '@/components/opening/CoverPage'
 import AppShell from './components/game/app-shell'
+import './styles/cover.css'
 import './styles/globals.css'
 import './styles/opening.css'
 import './styles/rich-cards.css'
@@ -60,7 +62,7 @@ function StartScreen() {
   const { setPlayerInfo, initGame, loadGame, hasSave } = useGameStore()
   const saved = hasSave()
   const { isPlaying, toggle: toggleBgm } = useBgm()
-  const [phase, setPhase] = useState<'splash' | 'montage' | 'create'>('splash')
+  const [phase, setPhase] = useState<'cover' | 'splash' | 'montage' | 'create'>('cover')
   const [name, setName] = useState('')
   const [montageIndex, setMontageIndex] = useState(0)
 
@@ -97,6 +99,17 @@ function StartScreen() {
   const randomName = useCallback(() => {
     setName(RANDOM_NAMES[Math.floor(Math.random() * RANDOM_NAMES.length)])
   }, [])
+
+  // Phase 0: Cover
+  if (phase === 'cover') {
+    return (
+      <CoverPage
+        hasSave={saved}
+        onNewGame={() => setPhase('splash')}
+        onContinue={() => { trackGameContinue(); loadGame() }}
+      />
+    )
+  }
 
   return (
     <div className={`${P}-start`}>

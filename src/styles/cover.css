@@ -1,0 +1,140 @@
+/* ================================================================
+   封面 — 都市情缘：深蓝夜色 + 玫粉浪漫（cover- 前缀，独立于游戏 UI）
+   ================================================================ */
+
+.cover {
+  position: fixed;
+  inset: 0;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  background: #080d1a;
+}
+
+/* 视频全屏 */
+.cover-video {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  z-index: 0;
+}
+
+/* 底部渐变暗角 — 深蓝夜色调，保留视频可见度 */
+.cover-overlay {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  background: linear-gradient(
+    180deg,
+    rgba(8, 13, 26, 0) 0%,
+    rgba(8, 13, 26, 0) 30%,
+    rgba(15, 22, 41, 0.2) 50%,
+    rgba(15, 22, 41, 0.6) 75%,
+    rgba(15, 22, 41, 0.85) 100%
+  );
+}
+
+/* 底部内容区 */
+.cover-content {
+  position: relative;
+  z-index: 2;
+  margin-top: auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 0 28px 48px;
+  padding-bottom: calc(48px + env(safe-area-inset-bottom));
+}
+
+/* 装饰线 — 玫粉渐变 */
+.cover-line {
+  width: 32px;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(255, 107, 138, 0.6), transparent);
+  margin-bottom: 16px;
+}
+
+/* 主标题 — 白色 + 玫粉光晕 */
+.cover-logo {
+  font-size: 30px;
+  font-weight: 700;
+  letter-spacing: 6px;
+  color: #ffffff;
+  text-shadow: 0 0 30px rgba(255, 107, 138, 0.3), 0 2px 4px rgba(0, 0, 0, 0.4);
+  margin-bottom: 8px;
+  text-align: center;
+}
+
+/* 副标题 — 淡玫粉 */
+.cover-sub {
+  font-size: 12px;
+  letter-spacing: 10px;
+  color: rgba(255, 143, 175, 0.7);
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.5);
+  margin-bottom: 12px;
+  text-align: center;
+}
+
+/* 标语 */
+.cover-slogan {
+  font-size: 12px;
+  letter-spacing: 1px;
+  color: rgba(255, 255, 255, 0.4);
+  margin-bottom: 32px;
+  text-align: center;
+}
+
+/* 按钮组 */
+.cover-actions {
+  width: 100%;
+  max-width: 300px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+/* 开始按钮 — 玫粉色描边毛玻璃 */
+.cover-start {
+  width: 100%;
+  padding: 14px 0;
+  border: 1px solid rgba(255, 107, 138, 0.3);
+  border-radius: 12px;
+  background: rgba(255, 107, 138, 0.12);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  color: #ffffff;
+  font-size: 15px;
+  font-weight: 600;
+  letter-spacing: 3px;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.cover-start:active {
+  transform: scale(0.97);
+  background: rgba(255, 107, 138, 0.25);
+}
+
+/* 继续按钮 — 更透明 */
+.cover-continue {
+  width: 100%;
+  padding: 13px 0;
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  color: rgba(255, 255, 255, 0.5);
+  font-size: 14px;
+  font-weight: 500;
+  letter-spacing: 2px;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.cover-continue:active {
+  background: rgba(255, 255, 255, 0.12);
+  color: rgba(255, 255, 255, 0.8);
+}
