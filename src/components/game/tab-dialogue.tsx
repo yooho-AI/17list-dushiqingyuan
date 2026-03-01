@@ -11,6 +11,7 @@ import {
   useGameStore, ITEMS, QUICK_ACTIONS, SCENES, STORY_INFO,
 } from '../../lib/store'
 import { parseStoryParagraph } from '../../lib/parser'
+import { Backpack, PaperPlaneRight, Gift } from '@phosphor-icons/react'
 
 const P = 'ds'
 
@@ -165,7 +166,7 @@ function InventorySheet({ open, onClose }: { open: boolean; onClose: () => void 
             onClick={(e) => e.stopPropagation()}
           >
             <div className={`${P}-inventory-handle`} />
-            <div className={`${P}-inventory-title`}>🎁 我的背包</div>
+            <div className={`${P}-inventory-title`}><Gift size={16} weight="fill" /> 我的背包</div>
             <div className={`${P}-inventory-grid`}>
               {Object.entries(ITEMS).map(([itemId, item]) => {
                 const count = inventory[itemId] ?? 0
@@ -291,7 +292,7 @@ export default function TabDialogue() {
           className={`${P}-inventory-btn`}
           onClick={() => setShowInventory(true)}
         >
-          🎁
+          <Backpack size={20} />
           {totalItems > 0 && <span className={`${P}-inventory-btn-badge`}>{totalItems}</span>}
         </button>
         <input
@@ -307,7 +308,7 @@ export default function TabDialogue() {
           onClick={handleSend}
           disabled={isTyping || !input.trim()}
         >
-          ➤
+          <PaperPlaneRight size={18} weight="fill" />
         </button>
       </div>
 

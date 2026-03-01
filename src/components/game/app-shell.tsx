@@ -12,6 +12,12 @@ import {
   getCurrentChapter, MAX_WEEKS,
 } from '../../lib/store'
 import { useBgm } from '../../lib/bgm'
+import {
+  MapTrifold, ChatCircleDots, Users,
+  Notebook, Scroll, MusicNotes, SpeakerSimpleSlash,
+  List, FloppyDisk, FolderOpen, ArrowClockwise, Play,
+  Lightning, NoteBlank,
+} from '@phosphor-icons/react'
 import TabDialogue from './tab-dialogue'
 import TabScene from './tab-scene'
 import TabCharacter from './tab-character'
@@ -19,10 +25,16 @@ import DashboardDrawer from './dashboard-drawer'
 
 const P = 'ds'
 
+const TAB_ICONS: Record<string, React.ReactNode> = {
+  scene: <MapTrifold size={22} />,
+  dialogue: <ChatCircleDots size={22} />,
+  character: <Users size={22} />,
+}
+
 const TAB_CONFIG = [
-  { key: 'scene', icon: '🗺️', label: '场景' },
-  { key: 'dialogue', icon: '💬', label: '对话' },
-  { key: 'character', icon: '👤', label: '人物' },
+  { key: 'scene', label: '场景' },
+  { key: 'dialogue', label: '对话' },
+  { key: 'character', label: '人物' },
 ] as const
 
 export default function AppShell() {
@@ -85,9 +97,9 @@ export default function AppShell() {
       <header className={`${P}-header`}>
         <div className={`${P}-header-left`}>
           <button className={`${P}-header-btn`} onClick={toggleDashboard} title="恋爱手帐">
-            📓
+            <Notebook size={18} />
           </button>
-          <span className={`${P}-ap-badge`}>⚡ {actionPoints}</span>
+          <span className={`${P}-ap-badge`}><Lightning size={13} weight="fill" /> {actionPoints}</span>
         </div>
         <div className={`${P}-header-center`}>
           <span className={`${P}-header-time`}>
@@ -101,13 +113,13 @@ export default function AppShell() {
             onClick={toggleBgm}
             title={isPlaying ? '暂停音乐' : '播放音乐'}
           >
-            {isPlaying ? '🎵' : '🔇'}
+            {isPlaying ? <MusicNotes size={18} /> : <SpeakerSimpleSlash size={18} />}
           </button>
           <button className={`${P}-header-btn`} onClick={toggleMenu} title="菜单">
-            ☰
+            <List size={18} />
           </button>
           <button className={`${P}-header-btn`} onClick={toggleRecords} title="事件记录">
-            📜
+            <Scroll size={18} />
           </button>
         </div>
       </header>
@@ -166,7 +178,7 @@ export default function AppShell() {
             className={`${P}-tab-item ${activeTab === tab.key ? `${P}-tab-active` : ''}`}
             onClick={() => setActiveTab(tab.key)}
           >
-            <span>{tab.icon}</span>
+            {TAB_ICONS[tab.key]}
             <span>{tab.label}</span>
           </button>
         ))}
@@ -214,7 +226,7 @@ export default function AppShell() {
               transition={{ type: 'spring', damping: 28, stiffness: 300 }}
               onClick={(e) => e.stopPropagation()}
             >
-              <div className={`${P}-record-title`}>📜 事件记录</div>
+              <div className={`${P}-record-title`}><Scroll size={16} /> 事件记录</div>
               <div className={`${P}-record-timeline`}>
                 {[...storyRecords].reverse().map((rec) => (
                   <div key={rec.id} className={`${P}-record-item`}>
@@ -230,7 +242,7 @@ export default function AppShell() {
                 ))}
                 {storyRecords.length === 0 && (
                   <div className={`${P}-empty`}>
-                    <div className={`${P}-empty-icon`}>📝</div>
+                    <div className={`${P}-empty-icon`}><NoteBlank size={32} /></div>
                     <div className={`${P}-empty-text`}>还没有事件记录</div>
                   </div>
                 )}
@@ -260,10 +272,10 @@ export default function AppShell() {
               <h3 style={{ fontSize: 16, fontWeight: 700, letterSpacing: 2, marginBottom: 20, textAlign: 'center' }}>
                 {STORY_INFO.title}
               </h3>
-              <button className={`${P}-menu-btn`} onClick={handleSave}>💾 保存进度</button>
-              <button className={`${P}-menu-btn`} onClick={handleLoad}>📂 读取存档</button>
-              <button className={`${P}-menu-btn danger`} onClick={handleReset}>🔄 重新开始</button>
-              <button className={`${P}-menu-btn`} onClick={toggleMenu}>▶️ 继续游戏</button>
+              <button className={`${P}-menu-btn`} onClick={handleSave}><FloppyDisk size={16} /> 保存进度</button>
+              <button className={`${P}-menu-btn`} onClick={handleLoad}><FolderOpen size={16} /> 读取存档</button>
+              <button className={`${P}-menu-btn danger`} onClick={handleReset}><ArrowClockwise size={16} /> 重新开始</button>
+              <button className={`${P}-menu-btn`} onClick={toggleMenu}><Play size={16} weight="fill" /> 继续游戏</button>
             </motion.div>
           </motion.div>
         )}
