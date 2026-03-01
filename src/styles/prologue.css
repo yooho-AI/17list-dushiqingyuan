@@ -1,0 +1,369 @@
+/**
+ * [INPUT]: 无外部依赖
+ * [OUTPUT]: 序幕全部样式
+ * [POS]: 缘起APP仿真序幕 — 聊天 + 嘉宾速览 + 个人资料
+ * [PROTOCOL]: ★ 种子文件，变更时更新此头部
+ */
+
+/* ================================================================
+   序幕 — 缘起APP 仿真（ds- 前缀）
+   Phase 1: 聊天（暖粉白 APP 界面）
+   Phase 2: 嘉宾速览（暗色电影感）
+   Phase 3: 个人资料（浪漫渐变）
+   ================================================================ */
+
+/* ── 通用：跳过按钮 ── */
+
+.ds-skip-pro {
+  position: absolute;
+  top: calc(12px + env(safe-area-inset-top));
+  right: 14px;
+  z-index: 10;
+  padding: 6px 14px;
+  border: none;
+  border-radius: 20px;
+  background: rgba(0, 0, 0, 0.06);
+  color: #999;
+  font-size: 13px;
+  cursor: pointer;
+}
+
+/* ================================================================
+   Phase 1: 缘起APP 聊天（仿真 IM 界面）
+   ================================================================ */
+
+.ds-chat {
+  position: fixed;
+  inset: 0;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  background: #fff5f8;
+  padding-top: env(safe-area-inset-top);
+  padding-bottom: env(safe-area-inset-bottom);
+}
+
+/* 顶部导航栏 */
+.ds-chat-header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 12px 16px;
+  background: linear-gradient(135deg, #ff6b8a, #ff8fab);
+  box-shadow: 0 2px 8px rgba(255, 107, 138, 0.2);
+}
+
+.ds-chat-avatar {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.25);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 18px;
+}
+
+.ds-chat-header-name {
+  font-size: 15px;
+  font-weight: 600;
+  color: #fff;
+  letter-spacing: 1px;
+}
+
+.ds-chat-header-status {
+  font-size: 11px;
+  color: rgba(255, 255, 255, 0.7);
+}
+
+/* 消息区 */
+.ds-chat-body {
+  flex: 1;
+  overflow-y: auto;
+  padding: 20px 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+/* 消息气泡 */
+.ds-chat-bubble {
+  max-width: 80%;
+  padding: 10px 14px;
+  background: #fff;
+  border-radius: 4px 18px 18px 18px;
+  font-size: 14px;
+  line-height: 1.6;
+  color: #333;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.06);
+  align-self: flex-start;
+}
+
+.ds-chat-bubble.highlight {
+  background: linear-gradient(135deg, #fff0f3, #ffe8ee);
+  border-left: 3px solid #ff6b8a;
+}
+
+/* 打字指示器 */
+.ds-chat-typing {
+  display: flex;
+  gap: 4px;
+  padding: 10px 14px;
+  align-self: flex-start;
+}
+
+.ds-chat-typing span {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #ccc;
+  animation: dsChatDot 1.4s ease-in-out infinite;
+}
+
+.ds-chat-typing span:nth-child(2) {
+  animation-delay: 0.2s;
+}
+
+.ds-chat-typing span:nth-child(3) {
+  animation-delay: 0.4s;
+}
+
+@keyframes dsChatDot {
+  0%, 80%, 100% { opacity: 0.3; transform: scale(0.8); }
+  40% { opacity: 1; transform: scale(1); }
+}
+
+/* CTA 区域 */
+.ds-chat-cta-area {
+  padding: 16px;
+  background: linear-gradient(transparent, #fff5f8 40%);
+}
+
+.ds-chat-cta {
+  width: 100%;
+  padding: 14px;
+  background: linear-gradient(135deg, #ff6b8a, #ff8fab);
+  border: none;
+  border-radius: 24px;
+  color: #fff;
+  font-size: 15px;
+  font-weight: 600;
+  letter-spacing: 2px;
+  cursor: pointer;
+  box-shadow: 0 4px 16px rgba(255, 107, 138, 0.35);
+  transition: all 0.2s;
+}
+
+.ds-chat-cta:active {
+  transform: scale(0.97);
+  box-shadow: 0 2px 8px rgba(255, 107, 138, 0.4);
+}
+
+/* ================================================================
+   Phase 2: 嘉宾速览（暗色电影感蒙太奇）
+   ================================================================ */
+
+.ds-profiles {
+  position: fixed;
+  inset: 0;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(165deg, #080d1a 0%, #0f1629 40%, #1a1035 70%, #0f1629 100%);
+  padding: env(safe-area-inset-top) 0 env(safe-area-inset-bottom);
+}
+
+.ds-profiles .ds-skip-pro {
+  background: rgba(255, 255, 255, 0.1);
+  color: rgba(255, 255, 255, 0.6);
+}
+
+.ds-profiles-title {
+  position: absolute;
+  top: calc(56px + env(safe-area-inset-top));
+  font-size: 13px;
+  letter-spacing: 4px;
+  color: rgba(255, 255, 255, 0.4);
+}
+
+/* 嘉宾卡片 */
+.ds-profiles-card {
+  width: 70%;
+  max-width: 280px;
+  aspect-ratio: 3 / 4;
+  border-radius: 16px;
+  overflow: hidden;
+  position: relative;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.6);
+}
+
+.ds-profiles-card-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.ds-profiles-card-overlay {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: 24px 16px;
+  background: linear-gradient(transparent, rgba(0, 0, 0, 0.85));
+}
+
+.ds-profiles-card-name {
+  font-size: 20px;
+  font-weight: 700;
+  letter-spacing: 2px;
+}
+
+.ds-profiles-card-title {
+  font-size: 12px;
+  color: rgba(255, 255, 255, 0.6);
+  margin-top: 4px;
+}
+
+/* 进度点 */
+.ds-profiles-dots {
+  position: absolute;
+  bottom: calc(32px + env(safe-area-inset-bottom));
+  display: flex;
+  gap: 6px;
+}
+
+.ds-profiles-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.15);
+  transition: all 0.3s;
+}
+
+.ds-profiles-dot.active {
+  background: #ff6b8a;
+  box-shadow: 0 0 6px rgba(255, 107, 138, 0.5);
+}
+
+/* ================================================================
+   Phase 3: 个人资料（浪漫渐变 + 毛玻璃卡片）
+   ================================================================ */
+
+.ds-setup {
+  position: fixed;
+  inset: 0;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(165deg, #0f1629 0%, #1a1035 50%, #2d1b4e 100%);
+  padding: env(safe-area-inset-top) 20px env(safe-area-inset-bottom);
+}
+
+/* 毛玻璃卡片 */
+.ds-setup-card {
+  width: 100%;
+  max-width: 320px;
+  padding: 36px 24px;
+  background: rgba(255, 255, 255, 0.06);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.ds-setup-icon {
+  font-size: 40px;
+  margin-bottom: 12px;
+}
+
+.ds-setup-title {
+  font-size: 20px;
+  font-weight: 700;
+  letter-spacing: 3px;
+  background: linear-gradient(135deg, #fff, #ffd6e0);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  margin-bottom: 8px;
+}
+
+.ds-setup-desc {
+  font-size: 13px;
+  color: rgba(255, 255, 255, 0.45);
+  text-align: center;
+  line-height: 1.7;
+  margin-bottom: 28px;
+}
+
+.ds-setup-label {
+  font-size: 11px;
+  color: rgba(255, 255, 255, 0.35);
+  letter-spacing: 3px;
+  margin-bottom: 10px;
+}
+
+.ds-setup-input {
+  width: 100%;
+  padding: 14px 20px;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 107, 138, 0.2);
+  border-radius: 14px;
+  color: #fff;
+  font-size: 18px;
+  text-align: center;
+  letter-spacing: 4px;
+  outline: none;
+  margin-bottom: 8px;
+  transition: border-color 0.3s;
+}
+
+.ds-setup-input::placeholder {
+  color: rgba(255, 255, 255, 0.2);
+  letter-spacing: 2px;
+  font-size: 14px;
+}
+
+.ds-setup-input:focus {
+  border-color: #ff6b8a;
+  box-shadow: 0 0 20px rgba(255, 107, 138, 0.15);
+}
+
+.ds-setup-random {
+  font-size: 11px;
+  color: rgba(255, 255, 255, 0.35);
+  cursor: pointer;
+  margin-bottom: 24px;
+  padding: 4px 12px;
+  border: none;
+  background: transparent;
+  transition: color 0.2s;
+}
+
+.ds-setup-random:active {
+  color: #ff6b8a;
+}
+
+.ds-setup-cta {
+  width: 100%;
+  padding: 14px;
+  background: linear-gradient(135deg, #ff6b8a, #ff8fab);
+  border: none;
+  border-radius: 24px;
+  color: #fff;
+  font-size: 15px;
+  font-weight: 600;
+  letter-spacing: 3px;
+  cursor: pointer;
+  box-shadow: 0 4px 20px rgba(255, 107, 138, 0.35);
+  transition: all 0.2s;
+}
+
+.ds-setup-cta:active {
+  transform: scale(0.97);
+  box-shadow: 0 2px 12px rgba(255, 107, 138, 0.4);
+}

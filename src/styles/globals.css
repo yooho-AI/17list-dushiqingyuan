@@ -538,6 +538,23 @@ body {
   text-align: center;
 }
 
+.ds-ending-restart {
+  padding: 14px 48px;
+  background: linear-gradient(135deg, #ff6b8a, #ff8fab);
+  border: none;
+  border-radius: 28px;
+  color: white;
+  font-size: 15px;
+  font-weight: 600;
+  letter-spacing: 3px;
+  cursor: pointer;
+  box-shadow: 0 4px 20px rgba(255, 107, 138, 0.35);
+}
+
+.ds-ending-restart:active {
+  transform: scale(0.97);
+}
+
 /* ── Toast ── */
 
 .ds-toast {
