@@ -273,21 +273,19 @@ export default function TabDialogue() {
       </div>
 
       {/* Dynamic Choices from AI */}
-      {choices.length > 0 && (
-        <div className={`${P}-choice-list`}>
-          {choices.map((action, idx) => (
-            <button
-              key={`${action}-${idx}`}
-              className={`${P}-choice-btn`}
-              onClick={() => handleQuickAction(action)}
-              disabled={isTyping}
-            >
-              <span className={`${P}-choice-idx`}>{idx + 1}</span>
-              {action}
-            </button>
-          ))}
-        </div>
-      )}
+      <div className={`${P}-choice-list`}>
+        {choices.map((action, idx) => (
+          <button
+            key={`${action}-${idx}`}
+            className={`${P}-choice-btn`}
+            onClick={() => handleQuickAction(action)}
+            disabled={isTyping}
+          >
+            <span className={`${P}-choice-idx`}>{idx + 1}</span>
+            {action}
+          </button>
+        ))}
+      </div>
 
       {/* Input Area */}
       <div style={{ display: 'flex', alignItems: 'center', gap: 8, padding: '8px 12px', borderTop: '1px solid rgba(255,255,255,0.06)' }}>

@@ -221,13 +221,17 @@ ${state.triggeredEvents.join('、') || '无'}
 - 支持 Markdown 格式（**加粗**、*斜体*、> 引用、表格等）
 - 严格遵循剧本中每位角色的说话风格和行为逻辑
 
-## 选项系统
-每次回复末尾必须给出3-4个行动选项供玩家选择下一步。格式严格如下：
+## 选项系统（必须严格遵守）
+每次回复末尾必须给出恰好4个行动选项，格式严格如下：
 1. 选项文本（简洁，15字以内）
 2. 选项文本
 3. 选项文本
 4. 选项文本
-选项应涵盖不同的情感策略和对话方向（如：主动靠近/保持距离/深入了解/转换话题等）。不要在选项前加"你的选择"等标题。`
+规则：
+- 必须恰好4个，不能多也不能少
+- 选项前不要加"你的选择"等标题行
+- 选项应涵盖不同的情感策略（如：主动靠近/保持距离/深入了解/转换话题）
+- 每个选项要具体、有剧情推动力，不要笼统`
 }
 
 // ── Store ──
@@ -450,6 +454,22 @@ export const useGameStore = create<GameStore>()(
         // Extract choices from AI response
         const { cleanContent, choices } = extractChoices(fullContent)
 
+        // Fallback: if AI didn't return 4 choices, generate context-aware ones
+        const finalChoices = choices.length >= 2 ? choices : (() => {
+          const char = get().currentCharacter
+            ? get().characters[get().currentCharacter!]
+            : null
+          if (char) {
+            return [
+              `继续和${char.name}聊天`,
+              `向${char.name}表达好感`,
+              `试探${char.name}的真实想法`,
+              '换个话题聊聊',
+            ]
+          }
+          return ['和嘉宾深入聊天', '去约会场景看看', '查看个人属性', '自由探索']
+        })()
+
         // Push AI message (with clean content, choices stored separately)
         set((s) => {
           s.messages.push({
@@ -459,7 +479,7 @@ export const useGameStore = create<GameStore>()(
             character: s.currentCharacter ?? undefined,
             timestamp: Date.now(),
           })
-          s.choices = choices
+          s.choices = finalChoices.slice(0, 4)
           s.isTyping = false
           s.streamingContent = ''
         })
