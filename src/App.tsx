@@ -31,7 +31,7 @@ const ENDING_TYPE_MAP: Record<string, { label: string; color: string; icon: stri
 function OpeningScreen() {
   const { setPlayerInfo, initGame, loadGame, hasSave } = useGameStore()
   const saved = hasSave()
-  const [phase, setPhase] = useState<'cover' | 'prologue'>('cover')
+  const [phase] = useState<'cover' | 'prologue'>('cover')
 
   const handleContinue = useCallback(() => {
     trackGameContinue()
@@ -42,7 +42,9 @@ function OpeningScreen() {
     return (
       <CoverPage
         hasSave={saved}
-        onNewGame={() => setPhase('prologue')}
+        onNewGame={() => {
+          window.open('https://yooho.ai/login', '_blank')
+        }}
         onContinue={handleContinue}
       />
     )
