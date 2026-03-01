@@ -284,6 +284,7 @@ export const useGameStore = create<GameStore>()(
           content: `欢迎来到缘起APP，${s.playerName}。系统已为你匹配10位优质男嘉宾。\n\n你可以在线上与他们聊天，也可以前往不同场景进行线下约会。每周有3点行动力，每次深度互动消耗1点。\n\n准备好开始你的都市情缘了吗？`,
           timestamp: Date.now(),
         })
+        s.choices = ['查看推荐嘉宾', '浏览约会场景', '打开缘起APP聊天', '先四处逛逛']
       })
     },
 
