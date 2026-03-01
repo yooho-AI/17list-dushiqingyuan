@@ -28,23 +28,33 @@ const ENDING_TYPE_MAP: Record<string, { label: string; color: string; icon: stri
 
 // ── Opening Screen ──
 
+function isLoggedIn() {
+  return document.cookie.includes('yooho_auth=')
+}
+
 function OpeningScreen() {
   const { setPlayerInfo, initGame, loadGame, hasSave } = useGameStore()
   const saved = hasSave()
-  const [phase] = useState<'cover' | 'prologue'>('cover')
+  const [phase, setPhase] = useState<'cover' | 'prologue'>('cover')
 
   const handleContinue = useCallback(() => {
     trackGameContinue()
     loadGame()
   }, [loadGame])
 
+  const handleNewGame = useCallback(() => {
+    if (isLoggedIn()) {
+      setPhase('prologue')
+    } else {
+      window.open('https://yooho.ai/login', '_blank')
+    }
+  }, [])
+
   if (phase === 'cover') {
     return (
       <CoverPage
         hasSave={saved}
-        onNewGame={() => {
-          window.open('https://yooho.ai/login', '_blank')
-        }}
+        onNewGame={handleNewGame}
         onContinue={handleContinue}
       />
     )
