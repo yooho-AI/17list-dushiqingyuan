@@ -197,7 +197,7 @@ function InventorySheet({ open, onClose }: { open: boolean; onClose: () => void 
 export default function TabDialogue() {
   const {
     messages, isTyping, streamingContent,
-    sendMessage, inventory,
+    sendMessage, inventory, choices,
   } = useGameStore()
 
   const [input, setInput] = useState('')
@@ -272,15 +272,16 @@ export default function TabDialogue() {
         )}
       </div>
 
-      {/* Quick Actions */}
-      <div className={`${P}-quick-grid`}>
-        {QUICK_ACTIONS.map((action) => (
+      {/* Quick Actions / Choices */}
+      <div className={`${P}-choice-list`}>
+        {(choices.length > 0 ? choices : QUICK_ACTIONS).map((action, idx) => (
           <button
-            key={action}
-            className={`${P}-quick-btn`}
+            key={`${action}-${idx}`}
+            className={`${P}-choice-btn`}
             onClick={() => handleQuickAction(action)}
             disabled={isTyping}
           >
+            <span className={`${P}-choice-idx`}>{idx + 1}</span>
             {action}
           </button>
         ))}

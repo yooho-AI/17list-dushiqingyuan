@@ -9,6 +9,7 @@ import { create } from 'zustand'
 import { immer } from 'zustand/middleware/immer'
 import GAME_SCRIPT from './script.md?raw'
 import { streamChat, chat } from './stream'
+import { extractChoices } from './parser'
 import {
   type Character, type CharacterStats, type Message, type StatMeta, type StoryRecord,
   PERIODS, MAX_WEEKS, MAX_ACTION_POINTS,
@@ -49,6 +50,7 @@ interface GameState {
   historySummary: string
   isTyping: boolean
   streamingContent: string
+  choices: string[]
 
   endingType: string | null
 
@@ -216,7 +218,16 @@ ${state.triggeredEvents.join('、') || '无'}
 - 角色对话：【角色名】"对话内容"
 - 数值变化：【角色名 好感度+N】【角色名 信任度-N】【角色名 了解度+N】
 - 全局属性变化：【沟通+N】【共情-N】
-- 严格遵循剧本中每位角色的说话风格和行为逻辑`
+- 支持 Markdown 格式（**加粗**、*斜体*、> 引用、表格等）
+- 严格遵循剧本中每位角色的说话风格和行为逻辑
+
+## 选项系统
+每次回复末尾必须给出3-4个行动选项供玩家选择下一步。格式严格如下：
+1. 选项文本（简洁，15字以内）
+2. 选项文本
+3. 选项文本
+4. 选项文本
+选项应涵盖不同的情感策略和对话方向（如：主动靠近/保持距离/深入了解/转换话题等）。不要在选项前加"你的选择"等标题。`
 }
 
 // ── Store ──
@@ -248,6 +259,7 @@ export const useGameStore = create<GameStore>()(
     historySummary: '',
     isTyping: false,
     streamingContent: '',
+    choices: [],
 
     endingType: null,
 
@@ -434,15 +446,19 @@ export const useGameStore = create<GameStore>()(
           set((s) => { s.endingType = 'be-regret' })
         }
 
-        // Push AI message
+        // Extract choices from AI response
+        const { cleanContent, choices } = extractChoices(fullContent)
+
+        // Push AI message (with clean content, choices stored separately)
         set((s) => {
           s.messages.push({
             id: makeId(),
             role: 'assistant',
-            content: fullContent,
+            content: cleanContent,
             character: s.currentCharacter ?? undefined,
             timestamp: Date.now(),
           })
+          s.choices = choices
           s.isTyping = false
           s.streamingContent = ''
         })
@@ -455,7 +471,7 @@ export const useGameStore = create<GameStore>()(
         const charName = get().currentCharacter
           ? get().characters[get().currentCharacter!]?.name
           : null
-        get().addStoryRecord(charName ?? '缘起', fullContent.slice(0, 40))
+        get().addStoryRecord(charName ?? '缘起', cleanContent.slice(0, 40))
 
       } catch (err) {
         set((s) => { s.isTyping = false; s.streamingContent = '' })
@@ -647,6 +663,7 @@ export const useGameStore = create<GameStore>()(
         s.historySummary = ''
         s.isTyping = false
         s.streamingContent = ''
+        s.choices = []
         s.endingType = null
         s.activeTab = 'dialogue'
         s.showDashboard = false

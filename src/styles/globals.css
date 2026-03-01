@@ -202,7 +202,7 @@ body {
 
 .ds-bubble-npc {
   align-self: flex-start;
-  max-width: 85%;
+  width: 100%;
   padding: 12px 16px;
   background: linear-gradient(135deg, rgba(20, 28, 50, 0.8), rgba(25, 35, 60, 0.7));
   border-left: 3px solid var(--primary);
@@ -248,39 +248,56 @@ body {
 .ds-bubble-system::before { left: -6px; transform: rotate(180deg); }
 .ds-bubble-system::after { right: -6px; }
 
-/* ── Quick Actions ── */
+/* ── Choice List (4x1 vertical) ── */
 
-.ds-quick-grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 8px;
+.ds-choice-list {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
   padding: 8px 16px;
 }
 
-.ds-quick-btn {
-  padding: 10px 12px;
-  background: rgba(var(--primary-rgb), 0.06);
+.ds-choice-btn {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 14px;
+  background: rgba(var(--primary-rgb), 0.05);
   border: 1px solid rgba(var(--primary-rgb), 0.15);
   border-radius: 12px;
   color: var(--text-primary);
   font-size: 13px;
   cursor: pointer;
   transition: all 0.2s;
-  text-align: center;
+  text-align: left;
 }
 
-.ds-quick-btn:hover {
+.ds-choice-btn:hover {
   background: rgba(var(--primary-rgb), 0.12);
   border-color: rgba(var(--primary-rgb), 0.3);
 }
 
-.ds-quick-btn:active {
-  transform: scale(0.97);
+.ds-choice-btn:active {
+  transform: scale(0.98);
 }
 
-.ds-quick-btn:disabled {
+.ds-choice-btn:disabled {
   opacity: 0.4;
   cursor: not-allowed;
+}
+
+.ds-choice-idx {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  background: rgba(var(--primary-rgb), 0.15);
+  color: var(--primary);
+  font-size: 11px;
+  font-weight: 700;
+  flex-shrink: 0;
 }
 
 /* ── Input Area ── */
@@ -668,6 +685,78 @@ body {
 .stat-up { color: var(--success); }
 .stat-down { color: var(--danger); }
 .item-gain { color: var(--warning); font-weight: 600; margin: 4px 0; }
+
+/* ── Markdown in NPC bubbles ── */
+
+.ds-bubble-npc p { margin: 4px 0; }
+.ds-bubble-npc p:first-child { margin-top: 0; }
+.ds-bubble-npc p:last-child { margin-bottom: 0; }
+
+.ds-bubble-npc strong { color: var(--primary); font-weight: 700; }
+.ds-bubble-npc em { color: var(--text-secondary); font-style: italic; }
+
+.ds-bubble-npc blockquote {
+  border-left: 3px solid rgba(var(--primary-rgb), 0.3);
+  padding-left: 12px;
+  margin: 8px 0;
+  color: var(--text-secondary);
+  font-style: italic;
+}
+
+.ds-bubble-npc hr {
+  border: none;
+  height: 1px;
+  background: rgba(var(--primary-rgb), 0.15);
+  margin: 12px 0;
+}
+
+.ds-bubble-npc table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 8px 0;
+  font-size: 13px;
+}
+
+.ds-bubble-npc th,
+.ds-bubble-npc td {
+  padding: 6px 8px;
+  border: 1px solid rgba(var(--primary-rgb), 0.15);
+  text-align: left;
+}
+
+.ds-bubble-npc th {
+  background: rgba(var(--primary-rgb), 0.08);
+  font-weight: 600;
+  color: var(--primary);
+}
+
+.ds-bubble-npc ul,
+.ds-bubble-npc ol {
+  padding-left: 20px;
+  margin: 6px 0;
+}
+
+.ds-bubble-npc li { margin: 2px 0; }
+
+.ds-bubble-npc code {
+  background: rgba(var(--primary-rgb), 0.1);
+  padding: 1px 5px;
+  border-radius: 4px;
+  font-size: 12px;
+}
+
+.ds-bubble-npc pre {
+  background: rgba(0, 0, 0, 0.3);
+  padding: 10px 12px;
+  border-radius: 8px;
+  margin: 8px 0;
+  overflow-x: auto;
+}
+
+.ds-bubble-npc pre code {
+  background: none;
+  padding: 0;
+}
 
 /* ── AP Badge ── */
 
