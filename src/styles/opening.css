@@ -1,0 +1,354 @@
+/* ── 都市情缘 · 开场样式 ── */
+/* 模式：缘起APP界面 Splash + 嘉宾卡片闪切 + 角色创建 */
+
+.ds-start {
+  position: fixed;
+  inset: 0;
+  background: linear-gradient(165deg, #080d1a 0%, #0f1629 40%, #1a1035 70%, #0f1629 100%);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  z-index: 500;
+}
+
+/* ── Phase 1: Splash ── */
+
+.ds-splash {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  width: 100%;
+  position: relative;
+}
+
+/* 浮动心形粒子 */
+.ds-particle {
+  position: absolute;
+  font-size: 16px;
+  opacity: 0;
+  animation: dsFloat 6s ease-in-out infinite;
+}
+
+@keyframes dsFloat {
+  0% { opacity: 0; transform: translateY(20px) scale(0.5); }
+  20% { opacity: 0.6; }
+  80% { opacity: 0.3; }
+  100% { opacity: 0; transform: translateY(-60vh) scale(1.2) rotate(15deg); }
+}
+
+/* APP Logo */
+.ds-splash-logo {
+  position: relative;
+  margin-bottom: 16px;
+}
+
+.ds-splash-icon {
+  width: 80px;
+  height: 80px;
+  background: linear-gradient(135deg, #ff6b8a, #ff8fab, #ff6b8a);
+  border-radius: 22px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 40px;
+  box-shadow:
+    0 8px 32px rgba(255, 107, 138, 0.3),
+    0 0 60px rgba(255, 107, 138, 0.15);
+  animation: dsLogoGlow 3s ease-in-out infinite;
+}
+
+@keyframes dsLogoGlow {
+  0%, 100% { box-shadow: 0 8px 32px rgba(255, 107, 138, 0.3), 0 0 60px rgba(255, 107, 138, 0.15); }
+  50% { box-shadow: 0 8px 32px rgba(255, 107, 138, 0.5), 0 0 80px rgba(255, 107, 138, 0.25); }
+}
+
+.ds-splash-title {
+  font-size: 36px;
+  font-weight: 800;
+  letter-spacing: 8px;
+  background: linear-gradient(135deg, #fff, #ffd6e0, #ff6b8a);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  margin-bottom: 8px;
+}
+
+.ds-splash-subtitle {
+  font-size: 14px;
+  color: var(--text-secondary);
+  letter-spacing: 4px;
+  margin-bottom: 48px;
+}
+
+.ds-splash-tagline {
+  font-size: 12px;
+  color: var(--text-muted);
+  letter-spacing: 2px;
+  margin-bottom: 32px;
+  text-align: center;
+  max-width: 260px;
+  line-height: 1.8;
+}
+
+/* CTA 按钮 */
+.ds-start-cta {
+  padding: 14px 48px;
+  background: linear-gradient(135deg, #ff6b8a, #ff8fab);
+  border: none;
+  border-radius: 28px;
+  color: white;
+  font-size: 16px;
+  font-weight: 600;
+  letter-spacing: 4px;
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 4px 20px rgba(255, 107, 138, 0.4);
+  animation: dsCtaPulse 2s ease-in-out infinite;
+}
+
+@keyframes dsCtaPulse {
+  0%, 100% { box-shadow: 0 4px 20px rgba(255, 107, 138, 0.4); }
+  50% { box-shadow: 0 4px 28px rgba(255, 107, 138, 0.6); transform: scale(1.02); }
+}
+
+.ds-start-cta::before {
+  content: '';
+  position: absolute;
+  top: 0; left: -100%;
+  width: 100%; height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+  animation: dsShimmer 3s ease-in-out infinite;
+}
+
+@keyframes dsShimmer {
+  0% { left: -100%; }
+  100% { left: 200%; }
+}
+
+.ds-continue-btn {
+  margin-top: 16px;
+  padding: 10px 32px;
+  background: transparent;
+  border: 1px solid rgba(var(--primary-rgb), 0.3);
+  border-radius: 24px;
+  color: var(--text-secondary);
+  font-size: 13px;
+  letter-spacing: 2px;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+
+.ds-continue-btn:hover {
+  border-color: var(--primary);
+  color: var(--primary);
+}
+
+/* ── Phase 2: 嘉宾闪切 ── */
+
+.ds-montage {
+  position: fixed;
+  inset: 0;
+  background: var(--bg-secondary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+.ds-montage-card {
+  position: absolute;
+  width: 70%;
+  max-width: 300px;
+  aspect-ratio: 3/4;
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.6);
+}
+
+.ds-montage-card img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.ds-montage-card-overlay {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: 20px 16px;
+  background: linear-gradient(transparent, rgba(0, 0, 0, 0.85));
+}
+
+.ds-montage-card-name {
+  font-size: 20px;
+  font-weight: 700;
+  letter-spacing: 2px;
+}
+
+.ds-montage-card-title {
+  font-size: 12px;
+  color: var(--text-secondary);
+  margin-top: 4px;
+}
+
+.ds-skip-btn {
+  position: absolute;
+  top: calc(16px + env(safe-area-inset-top));
+  right: 16px;
+  padding: 6px 16px;
+  background: rgba(0, 0, 0, 0.4);
+  backdrop-filter: blur(8px);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: 16px;
+  color: rgba(255, 255, 255, 0.7);
+  font-size: 12px;
+  cursor: pointer;
+  z-index: 10;
+}
+
+/* ── Phase 3: 角色创建 ── */
+
+.ds-create {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  width: 100%;
+  padding: 32px 24px;
+}
+
+.ds-create-title {
+  font-size: 22px;
+  font-weight: 700;
+  letter-spacing: 4px;
+  margin-bottom: 8px;
+  background: linear-gradient(135deg, #fff, #ffd6e0);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.ds-create-desc {
+  font-size: 13px;
+  color: var(--text-secondary);
+  text-align: center;
+  max-width: 280px;
+  line-height: 1.7;
+  margin-bottom: 40px;
+}
+
+.ds-create-label {
+  font-size: 11px;
+  color: var(--text-muted);
+  letter-spacing: 3px;
+  margin-bottom: 12px;
+  text-transform: uppercase;
+}
+
+.ds-create-input {
+  width: 240px;
+  padding: 14px 20px;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(var(--primary-rgb), 0.2);
+  border-radius: 16px;
+  color: var(--text-primary);
+  font-size: 18px;
+  text-align: center;
+  letter-spacing: 4px;
+  outline: none;
+  margin-bottom: 8px;
+  transition: border-color 0.3s;
+}
+
+.ds-create-input::placeholder {
+  color: var(--text-muted);
+  letter-spacing: 2px;
+  font-size: 14px;
+}
+
+.ds-create-input:focus {
+  border-color: var(--primary);
+  box-shadow: 0 0 20px rgba(var(--primary-rgb), 0.15);
+}
+
+.ds-create-random {
+  font-size: 11px;
+  color: var(--text-muted);
+  cursor: pointer;
+  margin-bottom: 36px;
+  padding: 4px 12px;
+  border: none;
+  background: transparent;
+  transition: color 0.2s;
+}
+
+.ds-create-random:hover {
+  color: var(--primary);
+}
+
+.ds-create-start {
+  padding: 14px 56px;
+  background: linear-gradient(135deg, #ff6b8a, #ff8fab);
+  border: none;
+  border-radius: 28px;
+  color: white;
+  font-size: 15px;
+  font-weight: 600;
+  letter-spacing: 3px;
+  cursor: pointer;
+  box-shadow: 0 4px 20px rgba(255, 107, 138, 0.35);
+  transition: all 0.3s;
+}
+
+.ds-create-start:hover {
+  box-shadow: 0 4px 28px rgba(255, 107, 138, 0.5);
+  transform: translateY(-1px);
+}
+
+.ds-create-start:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+  transform: none;
+}
+
+/* ── Music bar ── */
+
+.ds-music-bar {
+  position: absolute;
+  bottom: 32px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 14px;
+  background: rgba(0, 0, 0, 0.3);
+  border-radius: 16px;
+  cursor: pointer;
+}
+
+.ds-music-bar span {
+  width: 2px;
+  height: 12px;
+  background: var(--primary);
+  border-radius: 1px;
+  animation: dsMusicWave 1.2s ease-in-out infinite;
+}
+
+.ds-music-bar span:nth-child(2) { animation-delay: 0.2s; height: 16px; }
+.ds-music-bar span:nth-child(3) { animation-delay: 0.4s; height: 10px; }
+.ds-music-bar span:nth-child(4) { animation-delay: 0.6s; height: 14px; }
+
+@keyframes dsMusicWave {
+  0%, 100% { transform: scaleY(1); }
+  50% { transform: scaleY(0.4); }
+}
+
+.ds-music-bar.paused span {
+  animation: none;
+  height: 8px;
+  opacity: 0.4;
+}

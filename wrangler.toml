@@ -1,0 +1,6 @@
+name = "dushiqingyuan-api"
+main = "worker/index.js"
+compatibility_date = "2025-01-01"
+
+[vars]
+API_KEY = ""
