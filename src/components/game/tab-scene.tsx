@@ -13,8 +13,8 @@ const P = 'ds'
 
 export default function TabScene() {
   const {
-    currentScene, unlockedScenes, characters,
-    selectScene, selectCharacter, setActiveTab,
+    currentScene, unlockedScenes,
+    selectScene,
   } = useGameStore()
 
   const scene = SCENES[currentScene]
@@ -36,37 +36,6 @@ export default function TabScene() {
           </div>
         </div>
       )}
-
-      {/* Related Characters */}
-      <div style={{ padding: '12px 12px 0' }}>
-        <div className={`${P}-neon-divider`} />
-        <div style={{ fontSize: 13, fontWeight: 600, letterSpacing: 2, marginBottom: 8 }}>
-          👤 嘉宾
-        </div>
-        <div className={`${P}-char-grid`}>
-          {Object.values(characters).map((char) => (
-            <button
-              key={char.id}
-              className={`${P}-char-tag`}
-              onClick={() => {
-                selectCharacter(char.id)
-                setActiveTab('character')
-              }}
-            >
-              <img
-                src={char.portrait}
-                alt={char.name}
-                style={{
-                  width: 28, height: 28, borderRadius: '50%', objectFit: 'cover',
-                  border: `2px solid ${char.themeColor}`,
-                }}
-                onError={(e) => { (e.target as HTMLImageElement).style.display = 'none' }}
-              />
-              <span style={{ color: char.themeColor }}>{char.name}</span>
-            </button>
-          ))}
-        </div>
-      </div>
 
       {/* Location List */}
       <div style={{ padding: '16px 12px' }}>
