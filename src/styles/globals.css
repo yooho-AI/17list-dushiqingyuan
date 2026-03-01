@@ -167,7 +167,7 @@ body {
   flex-direction: column;
   align-items: center;
   gap: 2px;
-  padding: 6px 16px;
+  padding: 6px 12px;
   background: transparent;
   border: none;
   color: var(--text-muted);
@@ -248,13 +248,83 @@ body {
 .ds-bubble-system::before { left: -6px; transform: rotate(180deg); }
 .ds-bubble-system::after { right: -6px; }
 
-/* ── Choice List (4x1 vertical) ── */
+/* ── Collapsible Choices Panel ── */
+
+.ds-choice-wrap {
+  padding: 6px 12px;
+  border-top: 1px solid rgba(var(--primary-rgb), 0.08);
+}
+
+.ds-choice-toggle {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 10px 16px;
+  background: rgba(var(--primary-rgb), 0.06);
+  border: 1px solid rgba(var(--primary-rgb), 0.15);
+  border-radius: 12px;
+  color: var(--text-secondary);
+  font-size: 13px;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.ds-choice-toggle:hover {
+  background: rgba(var(--primary-rgb), 0.1);
+  color: var(--text-primary);
+}
+
+.ds-choice-toggle:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+.ds-choice-toggle-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 20px;
+  height: 20px;
+  padding: 0 6px;
+  background: rgba(var(--primary-rgb), 0.2);
+  border-radius: 10px;
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--primary);
+}
+
+.ds-choice-panel {
+  overflow: hidden;
+}
+
+.ds-choice-panel-header {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 4px;
+  background: transparent;
+  border: none;
+  color: var(--text-secondary);
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 1px;
+  cursor: pointer;
+}
+
+.ds-choice-panel-count {
+  margin-left: auto;
+  font-size: 11px;
+  color: var(--text-muted);
+  font-weight: 400;
+}
 
 .ds-choice-list {
   display: flex;
   flex-direction: column;
   gap: 6px;
-  padding: 8px 16px;
 }
 
 .ds-choice-btn {

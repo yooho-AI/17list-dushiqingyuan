@@ -16,7 +16,7 @@ import {
   MapTrifold, ChatCircleDots, Users,
   Notebook, Scroll, MusicNotes, SpeakerSimpleSlash,
   List, FloppyDisk, FolderOpen, ArrowClockwise, Play,
-  Lightning, NoteBlank,
+  Lightning, NoteBlank, CalendarCheck,
 } from '@phosphor-icons/react'
 import TabDialogue from './tab-dialogue'
 import TabScene from './tab-scene'
@@ -26,15 +26,19 @@ import DashboardDrawer from './dashboard-drawer'
 const P = 'ds'
 
 const TAB_ICONS: Record<string, React.ReactNode> = {
+  notebook: <Notebook size={22} />,
   scene: <MapTrifold size={22} />,
   dialogue: <ChatCircleDots size={22} />,
   character: <Users size={22} />,
+  records: <CalendarCheck size={22} />,
 }
 
 const TAB_CONFIG = [
+  { key: 'notebook', label: '手册' },
   { key: 'scene', label: '场景' },
   { key: 'dialogue', label: '对话' },
   { key: 'character', label: '人物' },
+  { key: 'records', label: '事件' },
 ] as const
 
 export default function AppShell() {
@@ -96,9 +100,6 @@ export default function AppShell() {
       {/* Header */}
       <header className={`${P}-header`}>
         <div className={`${P}-header-left`}>
-          <button className={`${P}-header-btn`} onClick={toggleDashboard} title="恋爱手帐">
-            <Notebook size={18} />
-          </button>
           <span className={`${P}-ap-badge`}><Lightning size={13} weight="fill" /> {actionPoints}</span>
         </div>
         <div className={`${P}-header-center`}>
@@ -117,9 +118,6 @@ export default function AppShell() {
           </button>
           <button className={`${P}-header-btn`} onClick={toggleMenu} title="菜单">
             <List size={18} />
-          </button>
-          <button className={`${P}-header-btn`} onClick={toggleRecords} title="事件记录">
-            <Scroll size={18} />
           </button>
         </div>
       </header>
@@ -172,16 +170,24 @@ export default function AppShell() {
 
       {/* Tab Bar */}
       <nav className={`${P}-tab-bar`}>
-        {TAB_CONFIG.map((tab) => (
-          <button
-            key={tab.key}
-            className={`${P}-tab-item ${activeTab === tab.key ? `${P}-tab-active` : ''}`}
-            onClick={() => setActiveTab(tab.key)}
-          >
-            {TAB_ICONS[tab.key]}
-            <span>{tab.label}</span>
-          </button>
-        ))}
+        {TAB_CONFIG.map((tab) => {
+          const isDrawer = tab.key === 'notebook' || tab.key === 'records'
+          const isActive = !isDrawer && activeTab === tab.key
+          return (
+            <button
+              key={tab.key}
+              className={`${P}-tab-item ${isActive ? `${P}-tab-active` : ''}`}
+              onClick={() => {
+                if (tab.key === 'notebook') toggleDashboard()
+                else if (tab.key === 'records') toggleRecords()
+                else setActiveTab(tab.key)
+              }}
+            >
+              {TAB_ICONS[tab.key]}
+              <span>{tab.label}</span>
+            </button>
+          )
+        })}
       </nav>
 
       {/* Dashboard Drawer (left) */}
