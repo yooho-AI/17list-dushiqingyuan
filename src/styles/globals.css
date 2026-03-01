@@ -677,7 +677,7 @@ body {
 /* ── Rich text helpers ── */
 
 .dialogue-line { margin: 4px 0; }
-.char-name { font-weight: 600; margin-right: 4px; }
+.char-name { font-weight: 600; color: #ff6b8a; }
 .action { color: var(--text-secondary); font-style: italic; margin: 4px 0; }
 .narration { margin: 4px 0; line-height: 1.8; }
 .stat-changes { margin-top: 8px; padding-top: 8px; border-top: 1px dashed rgba(var(--primary-rgb), 0.15); font-size: 12px; }
