@@ -167,12 +167,12 @@ export default function CharacterChat({
 
       {/* 聊天面板 */}
       <motion.div
-        className={`${P}-dossier-overlay`}
+        className={`${P}-record-sheet`}
+        style={{ zIndex: 52, display: 'flex', flexDirection: 'column' }}
         initial={{ x: '100%' }}
         animate={{ x: 0 }}
         exit={{ x: '100%' }}
         transition={{ type: 'spring', damping: 25, stiffness: 300 }}
-        style={{ display: 'flex', flexDirection: 'column' }}
       >
         {/* Header */}
         <div className={`${P}-private-chat-header`}>
